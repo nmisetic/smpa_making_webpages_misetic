@@ -17,11 +17,12 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(plotly)
 
+library(esquisse)
+
 
 ```
 
 For all of this tutorial we'll use built-in R datasets like "iris" and "diamonds," and also gin up toy datasets on the fly as we go.
-
 
 ```{r, echo=FALSE}
 
@@ -30,8 +31,25 @@ iris <- iris %>% as_tibble()
 head(iris)
 
 ```
+```{r}
+esquisser(iris)
+
+ggplot(iris) +
+  aes(x = Sepal.Length, y = Petal.Length) +
+  geom_point(
+    shape = "circle",
+    size = 2.25,
+    colour = "#112446"
+  ) +
+  labs(
+    title = "My First Chart",
+    subtitle = "Still My First Chart"
+  ) +
+  theme_minimal()
+```
 
 Basic scatterplot
+
 ```{r, echo=FALSE}
 
 fig <- plot_ly(data = iris, x = ~Sepal.Length, y = ~Petal.Length)
@@ -55,9 +73,11 @@ fig <- fig %>% layout(title = 'Customized Scatter Plot')
 fig
 
 ```
-``
+
+\`\`
 
 Single line chart
+
 ```{r, echo=FALSE}
 
 # Data Preparation
@@ -77,6 +97,7 @@ fig %>%
 ```
 
 Multiple line charts and styles
+
 ```{r, echo=FALSE}
 #Data Preparation:
 
@@ -127,6 +148,7 @@ fig
 ```
 
 Grouped Bar Chart
+
 ```{r, echo=FALSE}
 
 # Data Preparation
@@ -151,8 +173,8 @@ fig
 
 ```
 
-
 Stacked Bar Chart
+
 ```{r, echo=FALSE}
 
 # Data Preparation
@@ -178,6 +200,7 @@ fig
 ```
 
 Customizing an individual bar's color
+
 ```{r, echo=FALSE}
 
 fig <- plot_ly(
@@ -195,6 +218,7 @@ fig
 ```
 
 Mapping by color variable
+
 ```{r, echo=FALSE}
 
 #Data Preparation
@@ -211,6 +235,7 @@ fig
 ```
 
 Donut Chart
+
 ```{r, echo=FALSE}
 #Data Preparation
 Parts <- c('Beverage','Vegetable','Dairy','Fish')
@@ -230,21 +255,22 @@ fig <- fig %>% layout(
 
 ```
 
-###
-### Multilayer example  
+### 
 
-Now we'll look at something more complicated.  
-  
-Using the **txhousing** dataset from ggplot2, which tracks housing prices for cities in Texas over time. 
+### Multilayer example
+
+Now we'll look at something more complicated.
+
+Using the **txhousing** dataset from ggplot2, which tracks housing prices for cities in Texas over time.
 
 ```{r, echo=FALSE}
 head(txhousing)
 
 ```
 
-Let’s start by plotting the time trend for each city.  
-Watch here how we work plotly into a regular type of tidyverse/dplyr pipeline.  
-  
+Let's start by plotting the time trend for each city.\
+Watch here how we work plotly into a regular type of tidyverse/dplyr pipeline.
+
 *Key point:* the object created here is a plotly chart object. This will become important later on below to keep in mind.
 
 ```{r, echo=FALSE}
@@ -264,7 +290,7 @@ all_cities_plotlychart
 
 ```
 
-Now let's add a line with the average of each cities median price. We’ll use summarise() to average the housing values for each month. After the data is summarized, we’ll add a new layer based on the updated data.
+Now let's add a line with the average of each cities median price. We'll use summarise() to average the housing values for each month. After the data is summarized, we'll add a new layer based on the updated data.
 
 ```{r, echo=FALSE}
 
@@ -279,6 +305,7 @@ summarized_data %>%
 ```
 
 Make the chart to add a highlighted line for median price.
+
 ```{r, echo=FALSE}
 
 summarized_data %>%
@@ -287,11 +314,12 @@ summarized_data %>%
 
 ```
 
-The mutability of the plotly object allowed us to use all of the data in the first layer, and then add a second layer on a summarized version of the data.  
-  
-Let’s say that we also wanted to add lines for the major Texan cities to see where their housing prices fell compared to all cities. Let’s look at San Antonio and Austin. 
-  
+The mutability of the plotly object allowed us to use all of the data in the first layer, and then add a second layer on a summarized version of the data.
+
+Let's say that we also wanted to add lines for the major Texan cities to see where their housing prices fell compared to all cities. Let's look at San Antonio and Austin.
+
 First we'll do San Antonio.
+
 ```{r, echo=FALSE}
 
 all_cities_plotlychart %>%
@@ -299,7 +327,6 @@ all_cities_plotlychart %>%
   plotly_data()
 
 ```
-
 
 ```{r, echo=FALSE}
 
@@ -309,7 +336,6 @@ all_cities_plotlychart %>%
 
 
 ```
-
 
 ```{r, echo=FALSE}
 
@@ -322,6 +348,7 @@ all_cities_plotlychart %>%
 ```
 
 What if we want multiple cities to be highlighted? We can create a function to do it.
+
 ```{r, echo=FALSE}
 
 city_layer <- function(plot_obj, city_name) {
@@ -338,6 +365,12 @@ all_cities_plotlychart %>%
 
 ```
 
+```{r, echo=FALSE}
+
+
+
+
+```
 
 ```{r, echo=FALSE}
 
@@ -346,22 +379,12 @@ all_cities_plotlychart %>%
 
 ```
 
-
 ```{r, echo=FALSE}
 
 
 
 
 ```
-
-
-```{r, echo=FALSE}
-
-
-
-
-```
-
 
 ```{r, echo=FALSE}
 
