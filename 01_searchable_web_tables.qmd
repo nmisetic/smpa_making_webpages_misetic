@@ -105,7 +105,7 @@ mytable <- DT::datatable(events,
   DT::formatStyle('cand_lastname',  color = 'red', fontWeight = 'bold') 
 
 # ... then just run this simple bit of code to export to html
-DT::saveWidget(mytable, "mytable.html")
+DT::saveWidget(mytable, "candidatetracker.html")
 
 
 # We've now created a working web page that can be put anywhere on the internet we choose
